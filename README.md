@@ -1,4 +1,4 @@
-#Learning Managemnt Website
+#Learning Management Website
 
 ## Important Links
 
