@@ -1,9 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 .App {
-  text-align: center;
 }
 
 .App-logo {
@@ -39,4 +39,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.down-mark-line {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+}
+
+.down-mark-line:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: -1;
+  height: 100%;
+  /* background: url("../../../media/"); */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  animation: section-animation 3s infinite;
+}
+
+*:before {
+  transition: all 0.3s ease-out 0s;
 }
