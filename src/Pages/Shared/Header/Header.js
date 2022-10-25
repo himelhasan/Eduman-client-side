@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../../Context/AuthProvider";
 import logoBlack from "../../../media/logo/logo-black.png";
 
 const Header = () => {
+  const { logout, user } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState(false);
+  const [currentUser, setCurrentUser] = useState(false);
+
+  const signOut = () => {
+    logout()
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
       <div className="relative flex items-center justify-between">
@@ -50,7 +63,11 @@ const Header = () => {
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
-                <img src="https://placeimg.com/80/80/people" />
+                <img
+                  src={
+                    user.photoURL ? user.photoURL : "https://placeimg.com/80/80/people"
+                  }
+                />
               </div>
             </label>
             <ul
@@ -59,12 +76,11 @@ const Header = () => {
             >
               <li>
                 <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
+                  {user?.displayName ? user?.displayName : "Profile"}
                 </a>
               </li>
               <li>
-                <a>Logout</a>
+                <button onClick={signOut}>Logout</button>
               </li>
             </ul>
           </div>

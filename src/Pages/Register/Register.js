@@ -3,13 +3,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const Register = () => {
-  const { registerWithEmail } = useContext(AuthContext);
-
+  const { registerWithEmail, modifyProfile } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({
     displayName: "",
     email: "",
-    password: "",
-    passwordConfirmation: "",
+    photoURL: "",
   });
 
   const [err, setErr] = useState({
@@ -17,21 +15,15 @@ const Register = () => {
     pass: "",
     confirmPass: "",
   });
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [displayName, setDisplayName] = useState("");
+  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const fullName = firstName + " " + lastName;
 
-  const handelFirstNameChange = (e) => {
-    const fname = e.target.value;
-    setFirstName(fname);
-  };
-  const handelLastNameChange = (e) => {
-    const lname = e.target.value;
-    setLastName(lname);
+  const handelYourNameChange = (e) => {
+    console.log(e.target.value);
+    setFullName(e.target.value);
+    setUserInfo({ ...userInfo, displayName: e.target.value });
   };
 
   const handelEmailChange = (e) => {
@@ -104,14 +96,31 @@ const Register = () => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+        updateUserProfile(userInfo);
         form.reset();
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error);
         // ..
+      });
+  };
+
+  const updateUserProfile = (userInfo) => {
+    // console.log("displayName", userInfo.displayName);
+    // updateUserProfileName();
+    modifyProfile(userInfo)
+      .then((res) => {
+        // Profile updated!
+        // ...
+        // const profile = res.user;
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+        // An error occurred
+        // ...
       });
   };
 
@@ -138,14 +147,14 @@ const Register = () => {
             </h1>
 
             <form onSubmit={signUpWithEmail} className="mt-8 grid grid-cols-6 gap-6">
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6">
                 <label className="block text-sm font-medium text-gray-700">
-                  First Name
+                  Your Name
                 </label>
 
                 <input
                   autoComplete="on"
-                  onChange={handelFirstNameChange}
+                  onChange={handelYourNameChange}
                   type="text"
                   id="FirstName"
                   name="first_name"
@@ -153,7 +162,7 @@ const Register = () => {
                 />
               </div>
 
-              <div className="col-span-6 sm:col-span-3">
+              {/* <div className="col-span-6 sm:col-span-3">
                 <label className="block text-sm font-medium text-gray-700">
                   Last Name
                 </label>
@@ -166,7 +175,7 @@ const Register = () => {
                   name="last_name"
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
-              </div>
+              </div> */}
 
               <div className="col-span-6">
                 <label className="block text-sm font-medium text-gray-700">Email</label>

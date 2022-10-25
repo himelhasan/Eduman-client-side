@@ -1,39 +1,121 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
+import { FaGithub } from "react-icons/fa";
 
 const Login = () => {
+  const { emailLogin, gmailLogin, githubLogin } = useContext(AuthContext);
+  const [err, setErr] = useState({
+    email: "",
+    pass: "",
+    confirmPass: "",
+  });
+
+  const [userInfo, setUserInfo] = useState({
+    displayName: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+  });
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handelEmailChange = (e) => {
+    console.log(e.target.value);
+    const inputEmail = e.target.value;
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        inputEmail
+      )
+    ) {
+      setErr({ ...err, email: "Please Provide a valid email" });
+      return;
+    }
+    setErr({ ...err, email: "" });
+    setEmail(inputEmail);
+    setUserInfo({ ...userInfo, email: inputEmail });
+  };
+  const handelPasswordChange = (e) => {
+    const inputPassword = e.target.value;
+    setErr({ ...err, pass: "" });
+    setPassword(inputPassword);
+    setUserInfo({ ...userInfo, password: inputPassword });
+  };
+  const signInWithEmail = (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    emailLogin(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        form.reset();
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+      });
+  };
+
+  const signInWithGoogle = () => {
+    gmailLogin()
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
+      })
+      .then((error) => {
+        console.log(error);
+      });
+  };
+
+  const signInWithGithub = () => {
+    githubLogin()
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <section class="bg-white">
-      <div class="lg:grid lg:min-h-screen lg:grid-cols-12">
-        <section class="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
+    <section className="bg-white">
+      <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
+        <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
           <img
             alt="Night"
             src="https://www.penyourthought.com/wp-content/uploads/2021/06/A-Brief-Insight-Into-TensorFlow-Development-and-Its-Features.jpg"
-            class="absolute inset-0 h-full w-full object-cover opacity-80"
+            className="absolute inset-0 h-full w-full object-cover opacity-80"
           />
 
-          <div class="hidden lg:relative lg:block lg:p-12"></div>
+          <div className="hidden lg:relative lg:block lg:p-12"></div>
         </section>
 
         <main
           aria-label="Main"
-          class="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6"
+          className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6"
         >
-          <div class="max-w-xl lg:max-w-3xl">
-            <h1 class="mb-4 text-lg font-semibold text-left text-gray-900">
+          <div className="max-w-xl lg:max-w-3xl">
+            <h1 className="mb-4 text-lg font-semibold text-left text-gray-900">
               Log in to your account
             </h1>
 
-            <form className="pb-1 space-y-4">
+            <form className="pb-1 space-y-4" onSubmit={signInWithEmail}>
               <label className="block">
                 <span className="block mb-1 text-xs font-medium text-gray-700">
                   Your Email
                 </span>
                 <input
+                  autoComplete="on"
                   className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm px-5 py-2 w-full border rounded"
                   type="email"
                   placeholder="Ex. james@bond.com"
-                  inputmode="email"
+                  onChange={handelEmailChange}
                   required
                 />
               </label>
@@ -42,9 +124,11 @@ const Login = () => {
                   Your Password
                 </span>
                 <input
+                  autoComplete="on"
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                   type="password"
                   placeholder="••••••••"
+                  onChange={handelPasswordChange}
                   required
                 />
               </label>
@@ -69,7 +153,7 @@ const Login = () => {
                 </p>
 
                 <Link
-                  href="#"
+                  onClick={signInWithGoogle}
                   className="w-full py-3 btn btn-icon btn-google bg-indigo-accent-700 border-none"
                 >
                   <svg
@@ -84,37 +168,31 @@ const Login = () => {
                   </svg>
                   Continue with Google
                 </Link>
-                <Link href="#" className="w-full py-3 btn btn-icon bg-indigo-accent-700">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="mr-1"
-                  >
-                    <path d="M19.665,16.811c-0.287,0.664-0.627,1.275-1.021,1.837c-0.537,0.767-0.978,1.297-1.316,1.592	c-0.525,0.482-1.089,0.73-1.692,0.744c-0.432,0-0.954-0.123-1.562-0.373c-0.61-0.249-1.17-0.371-1.683-0.371	c-0.537,0-1.113,0.122-1.73,0.371c-0.616,0.25-1.114,0.381-1.495,0.393c-0.577,0.025-1.154-0.229-1.729-0.764	c-0.367-0.32-0.826-0.87-1.377-1.648c-0.59-0.829-1.075-1.794-1.455-2.891c-0.407-1.187-0.611-2.335-0.611-3.447	c0-1.273,0.275-2.372,0.826-3.292c0.434-0.74,1.01-1.323,1.73-1.751C7.271,6.782,8.051,6.563,8.89,6.549	c0.46,0,1.063,0.142,1.81,0.422s1.227,0.422,1.436,0.422c0.158,0,0.689-0.167,1.593-0.498c0.853-0.307,1.573-0.434,2.163-0.384	c1.6,0.129,2.801,0.759,3.6,1.895c-1.43,0.867-2.137,2.08-2.123,3.637c0.012,1.213,0.453,2.222,1.317,3.023	c0.392,0.372,0.829,0.659,1.315,0.863C19.895,16.236,19.783,16.529,19.665,16.811L19.665,16.811z M15.998,2.38	c0,0.95-0.348,1.838-1.039,2.659c-0.836,0.976-1.846,1.541-2.941,1.452c-0.014-0.114-0.021-0.234-0.021-0.36	c0-0.913,0.396-1.889,1.103-2.688c0.352-0.404,0.8-0.741,1.343-1.009c0.542-0.264,1.054-0.41,1.536-0.435	C15.992,2.127,15.998,2.254,15.998,2.38L15.998,2.38z" />
-                  </svg>
-                  Continue with Apple
+                <Link
+                  onClick={signInWithGithub}
+                  className="w-full py-3 btn btn-icon bg-indigo-accent-700"
+                >
+                  <FaGithub className="mr-1" style={{ height: "24px", width: "24px" }} />
+                  Continue with Github
                 </Link>
               </div>
             </form>
-            <div class="my-6 space-y-2">
-              <p class="text-xs text-gray-600">
+            <div className="my-6 space-y-2">
+              <p className="text-xs text-gray-600">
                 Don't have an account?
-                <Link to="/register" class="text-indigo-accent-700 hover:text-black">
+                <Link to="/register" className="text-indigo-accent-700 hover:text-black">
                   Create an account
                 </Link>
               </p>
               <Link
                 href="#"
-                class="block text-xs text-indigo-accent-700 hover:text-black"
+                className="block text-xs text-indigo-accent-700 hover:text-black"
               >
                 Forgot password?
               </Link>
               <Link
                 href="#"
-                class="block text-xs text-indigo-accent-700 hover:text-black"
+                className="block text-xs text-indigo-accent-700 hover:text-black"
               >
                 Privacy & Terms
               </Link>
