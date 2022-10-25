@@ -1,7 +1,120 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthProvider";
 
 const Register = () => {
+  const { registerWithEmail } = useContext(AuthContext);
+
+  const [userInfo, setUserInfo] = useState({
+    displayName: "",
+    email: "",
+    password: "",
+    passwordConfirmation: "",
+  });
+
+  const [err, setErr] = useState({
+    email: "",
+    pass: "",
+    confirmPass: "",
+  });
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const fullName = firstName + " " + lastName;
+
+  const handelFirstNameChange = (e) => {
+    const fname = e.target.value;
+    setFirstName(fname);
+  };
+  const handelLastNameChange = (e) => {
+    const lname = e.target.value;
+    setLastName(lname);
+  };
+
+  const handelEmailChange = (e) => {
+    console.log(e.target.value);
+    const inputEmail = e.target.value;
+    if (
+      !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        inputEmail
+      )
+    ) {
+      setErr({ ...err, email: "Please Provide a valid email" });
+      return;
+    }
+    setErr({ ...err, email: "" });
+    setEmail(inputEmail);
+    setUserInfo({ ...userInfo, email: inputEmail });
+  };
+  const handelPasswordChange = (e) => {
+    const inputPassword = e.target.value;
+    const eightDigit = !/.{8}/.test(inputPassword);
+    const oneDigit = !/^(?=.*\d)/.test(inputPassword);
+    const uppercase = !/(?=.*[A-Z])/.test(inputPassword);
+    const lowercase = !/(?=.*[a-z])/.test(inputPassword);
+    const specialCharacter = !/(?=.*[!@#$%^&*()\-__+,./;:"'|])/.test(inputPassword);
+
+    if (oneDigit) {
+      setErr({ ...err, pass: "Please Provide At least one digit" });
+      return;
+    }
+
+    if (specialCharacter) {
+      setErr({ ...err, pass: "Please Provide At least one special character " });
+      return;
+    }
+    if (uppercase) {
+      setErr({ ...err, pass: "Please Provide At least one uppercase character " });
+      return;
+    }
+    if (lowercase) {
+      setErr({ ...err, pass: "Please Provide At least one lowercase character " });
+      return;
+    }
+
+    if (eightDigit) {
+      setErr({ ...err, pass: "Please Provide Minimum 8 characters" });
+      return;
+    }
+
+    setErr({ ...err, pass: "" });
+    setPassword(inputPassword);
+    setUserInfo({ ...userInfo, password: inputPassword });
+  };
+  const handelPasswordConfirmationChange = (e) => {
+    console.log(e.target.value);
+    const inputPassConfirmation = e.target.value;
+
+    if (password === inputPassConfirmation) {
+      setPasswordConfirmation(inputPassConfirmation);
+      setErr({ ...err, confirmPass: "" });
+    } else {
+      setErr({ ...err, confirmPass: "Password dosent match" });
+    }
+  };
+
+  const signUpWithEmail = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    registerWithEmail(email, password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        form.reset();
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(error);
+        // ..
+      });
+  };
+
   return (
     <section className="bg-white">
       <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
@@ -20,20 +133,19 @@ const Register = () => {
           className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:py-12 lg:px-16 xl:col-span-6"
         >
           <div className="max-w-xl lg:max-w-3xl">
-            <h1 class="mb-4 text-lg font-semibold text-left text-gray-900">
+            <h1 className="mb-4 text-lg font-semibold text-left text-gray-900">
               Sign up for your account
             </h1>
 
-            <form action="#" className="mt-8 grid grid-cols-6 gap-6">
+            <form onSubmit={signUpWithEmail} className="mt-8 grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  for="FirstName"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label className="block text-sm font-medium text-gray-700">
                   First Name
                 </label>
 
                 <input
+                  autoComplete="on"
+                  onChange={handelFirstNameChange}
                   type="text"
                   id="FirstName"
                   name="first_name"
@@ -42,11 +154,13 @@ const Register = () => {
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label for="LastName" className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700">
                   Last Name
                 </label>
 
                 <input
+                  autoComplete="on"
+                  onChange={handelLastNameChange}
                   type="text"
                   id="LastName"
                   name="last_name"
@@ -55,50 +169,55 @@ const Register = () => {
               </div>
 
               <div className="col-span-6">
-                <label for="Email" className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
+                <label className="block text-sm font-medium text-gray-700">Email</label>
 
                 <input
+                  autoComplete="on"
+                  onChange={handelEmailChange}
                   type="email"
                   id="Email"
                   name="email"
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                <p className="text-red-600">{err.email}</p>
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label for="Password" className="block text-sm font-medium text-gray-700">
+                <label className="block text-sm font-medium text-gray-700">
                   Password
                 </label>
 
                 <input
+                  autoComplete="on"
+                  onChange={handelPasswordChange}
                   type="password"
                   id="Password"
                   name="password"
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                <p className="text-red-600">{err.pass}</p>
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  for="PasswordConfirmation"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label className="block text-sm font-medium text-gray-700">
                   Password Confirmation
                 </label>
 
                 <input
+                  autoComplete="on"
+                  onChange={handelPasswordConfirmationChange}
                   type="password"
                   id="PasswordConfirmation"
                   name="password_confirmation"
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
+                <p className="text-red-600">{err.confirmPass}</p>
               </div>
 
               <div className="col-span-6">
-                <label for="MarketingAccept" className="flex gap-4">
+                <label className="flex gap-4">
                   <input
+                    autoComplete="on"
                     type="checkbox"
                     id="MarketingAccept"
                     name="marketing_accept"
@@ -126,6 +245,7 @@ const Register = () => {
                 </p>
               </div>
 
+              <p className="text-red-600">{err.general}</p>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <button className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
                   Create an account
