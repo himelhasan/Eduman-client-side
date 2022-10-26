@@ -30,8 +30,8 @@ const routes = createBrowserRouter([
 
       {
         path: "/courses/:id",
-        loader: (params) => {
-          return fetch(`https://course-data-server.vercel.app/$$$$${params.id}`);
+        loader: ({ params }) => {
+          return fetch(`https://course-data-server.vercel.app/course/${params.id}`);
         },
         element: <SingleCoursePage></SingleCoursePage>,
       },
