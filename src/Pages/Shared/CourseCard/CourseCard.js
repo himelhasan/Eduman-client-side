@@ -14,9 +14,12 @@ const CourseCard = ({ course }) => {
     author,
   } = course;
   return (
-    <Link to={id} className="relative bg-white m-2 flex flex-col  justify-between">
+    <Link
+      to={`/courses/${id}`}
+      className="relative bg-white m-2 flex flex-col  justify-between border border-gray-200 "
+    >
       <div>
-        <span className="absolute right-4 top-4  bg-indigo-accent-400 text-white px-3 py-1 text-xs font-medium">
+        <span className="absolute right-4 top-4   bg-indigo-accent-400 text-white px-3 py-1 text-xs font-medium">
           {tags}
         </span>
         <img alt={courseName} src={image} className=" w-full object-contain" />
