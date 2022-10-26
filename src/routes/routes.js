@@ -9,6 +9,7 @@ import Faq from "../Pages/Faq/Faq";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
+import PrivateRouter from "./PrivateRouter";
 
 const routes = createBrowserRouter([
   {
@@ -17,7 +18,14 @@ const routes = createBrowserRouter([
     children: [
       { path: "/", element: <Home></Home> },
       { path: "/about", element: <About></About> },
-      { path: "/courses", element: <Courses></Courses> },
+      {
+        path: "/courses",
+        element: (
+          <PrivateRouter>
+            <Courses></Courses>
+          </PrivateRouter>
+        ),
+      },
       { path: "/faq", element: <Faq></Faq> },
       { path: "/blog", element: <Blog></Blog> },
       { path: "/contact", element: <Contact></Contact> },

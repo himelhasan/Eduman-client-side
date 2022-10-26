@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CourseCard = () => {
   return (
-    <a href="#" className="relative block bg-white">
+    <Link href="#" className="relative block bg-white">
       <button
         type="button"
         className="absolute right-4 top-4 rounded-full bg-black p-2 text-white"
@@ -61,7 +62,7 @@ const CourseCard = () => {
           </svg>
         </button>
       </div>
-    </a>
+    </Link>
   );
 };
 

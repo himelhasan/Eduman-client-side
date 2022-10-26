@@ -19,10 +19,7 @@ const AuthProvider = ({ children }) => {
   const provider = new GoogleAuthProvider();
   const githubProvider = new GithubAuthProvider();
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState({
-    displayName: "",
-    photoURL: "",
-  });
+  const [user, setUser] = useState({});
 
   // registration
   const registerWithEmail = (email, password) => {

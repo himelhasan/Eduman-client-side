@@ -1,10 +1,14 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 import { FaGithub } from "react-icons/fa";
 
 const Login = () => {
   const { emailLogin, gmailLogin, githubLogin } = useContext(AuthContext);
+
+  const location = useLocation();
+  console.log("from", location.state?.from?.pathname);
+  const navigate = useNavigate();
   const [err, setErr] = useState({
     email: "",
     pass: "",
@@ -52,6 +56,7 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user);
         form.reset();
+        navigate(location.state?.from?.pathname);
         // ...
       })
       .catch((error) => {
@@ -66,6 +71,7 @@ const Login = () => {
       .then((res) => {
         const user = res.user;
         console.log(user);
+        navigate(location.state?.from?.pathname);
       })
       .then((error) => {
         console.log(error);
@@ -76,6 +82,8 @@ const Login = () => {
     githubLogin()
       .then((res) => {
         const user = res.user;
+        navigate(location.state?.from?.pathname);
+
         console.log(user);
       })
       .catch((err) => {
