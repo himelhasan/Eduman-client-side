@@ -51,7 +51,7 @@ const SingleCoursePage = () => {
           </div>
         </div>
       </>
-      <div className="flex flex-col-reverse md:flex-row px-5 py-14 lg:px-20 lg:py-0 lg:-mt-10 ">
+      <div className="flex flex-col-reverse md:flex-row px-5 py-14 lg:px-32 lg:py-0 lg:-mt-10 ">
         <div className=" w-full md:w-3/4  border-gray-200 rounded bg-white mx-2 px-3 lg:px-10 py-8">
           <h1 className="text-3xl font-semibold ">{courseName}</h1>
           <div className="flex flex-col md:flex-row space-x-5 border-y py-2 md:p-3 my-6">

@@ -30,7 +30,7 @@ const CoursesLayout = () => {
         <div className="w-full md:w-1/4">
           <CategoryFilterSidebar></CategoryFilterSidebar>
         </div>
-        <div className="w-3/4">
+        <div className="w-full md:w-3/4">
           <Courses></Courses>
           {/* content<Outlet></Outlet> */}
         </div>

@@ -5,7 +5,9 @@ const CourseCard = ({ course }) => {
   const {
     id,
     image,
+    category,
     tags,
+    skillLevel,
     language,
     courseName,
     description,
@@ -25,7 +27,7 @@ const CourseCard = ({ course }) => {
         <img alt={courseName} src={image} className=" w-full object-contain" />
 
         <div className="relative bg-white mx-2 mt-1 flex justify-between">
-          <div className="p-2 flex">
+          <div className="p-2 flex text-slate-500">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -44,21 +46,34 @@ const CourseCard = ({ course }) => {
               {lessons} Lessons
             </span>
           </div>
-          <div className="p-2">
-            {" "}
-            <p className="text-sm font-medium text-gray-600">Price: $14.99</p>
+          <div className="p-2 flex text-slate-500">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 13.5V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m12-3V3.75m0 9.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 3.75V16.5m-6-9V3.75m0 3.75a1.5 1.5 0 010 3m0-3a1.5 1.5 0 000 3m0 9.75V10.5"
+              />
+            </svg>
+
+            <span className="mx-2 text-sm font-medium text-gray-600">{skillLevel}</span>
           </div>
         </div>
 
-        <div className="px-6 py-2">
+        <div className="px-5 py-2">
           <h3 className="mt-1 text-lg font-bold">{courseName}</h3>
           <p className="mt-1 text-sm font-medium text-gray-600">
             {description.slice(0, 100)}...
           </p>
         </div>
       </div>
-      <div className="px-6 py-1">
-        <p className="mt-2 text-sm font-medium text-gray-600">Price: $14.99</p>
+      <div className="px-5 py-1">
         <button
           type="button"
           className="my-4 mx-auto flex w-full items-center justify-center rounded-sm bg-indigo-accent-700 hover:bg-black text-white px-8 py-4"
