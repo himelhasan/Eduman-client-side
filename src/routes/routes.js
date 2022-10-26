@@ -20,11 +20,10 @@ const routes = createBrowserRouter([
       { path: "/about", element: <About></About> },
       {
         path: "/courses",
-        element: (
-          <PrivateRouter>
-            <Courses></Courses>
-          </PrivateRouter>
-        ),
+        loader: () => {
+          return fetch("https://course-data-server.vercel.app/courses");
+        },
+        element: <Courses></Courses>,
       },
       { path: "/faq", element: <Faq></Faq> },
       { path: "/blog", element: <Blog></Blog> },
