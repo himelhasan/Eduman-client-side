@@ -1,7 +1,8 @@
-import React from "react";
+import React, { createRef } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import innerBanner from "../../media/photos/slider-university.jpg";
 import SingleCourseSidebar from "./SingleCourseSidebar";
+// import Pdf from "react-to-pdf";
 
 const SingleCoursePage = () => {
   const singleCourseData = useLoaderData();
@@ -26,8 +27,12 @@ const SingleCoursePage = () => {
 
   const { courses, img_url, instructor_rating, name, reviews, students } = author[0];
 
+  // const ref = createRef();
   return (
     <div>
+      {/* <Pdf targetRef={ref} filename={courseName}>
+        {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
+      </Pdf> */}
       {/* header part */}
 
       <>

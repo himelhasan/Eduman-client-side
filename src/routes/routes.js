@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import About from "../Pages/About/About";
 import Blog from "../Pages/Blog/Blog";
+import CheckOut from "../Pages/CheckOut/CheckOut";
 import Contact from "../Pages/Contact/Contact";
 import Courses from "../Pages/Courses/Courses";
 import CoursesLayout from "../Pages/Courses/CoursesLayout";
@@ -34,6 +35,18 @@ const routes = createBrowserRouter([
           return fetch(`https://course-data-server.vercel.app/course/${params.id}`);
         },
         element: <SingleCoursePage></SingleCoursePage>,
+      },
+
+      {
+        path: "/checkout/:id",
+        loader: ({ params }) => {
+          return fetch(`https://course-data-server.vercel.app/course/${params.id}`);
+        },
+        element: (
+          <PrivateRouter>
+            <CheckOut></CheckOut>
+          </PrivateRouter>
+        ),
       },
       { path: "/faq", element: <Faq></Faq> },
       { path: "/blog", element: <Blog></Blog> },

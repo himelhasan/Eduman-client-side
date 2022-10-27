@@ -78,8 +78,7 @@ const CourseCard = ({ course }) => {
           type="button"
           className="my-4 mx-auto flex w-full items-center justify-center rounded-sm bg-indigo-accent-700 hover:bg-black text-white px-8 py-4"
         >
-          <span className="text-sm font-medium"> Get Premium Access </span>
-
+          <span className="text-sm font-medium">Course Details</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
