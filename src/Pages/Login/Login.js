@@ -13,6 +13,7 @@ const Login = () => {
     email: "",
     pass: "",
     confirmPass: "",
+    general: "",
   });
 
   const [userInfo, setUserInfo] = useState({
@@ -56,12 +57,15 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user);
         form.reset();
+        setErr({ ...err, general: "" });
+
         navigate(location.state?.from?.pathname);
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        setErr({ ...err, general: errorMessage });
         console.log(error);
       });
   };
@@ -71,10 +75,13 @@ const Login = () => {
       .then((res) => {
         const user = res.user;
         console.log(user);
+        setErr({ ...err, general: "" });
         navigate(location.state?.from?.pathname);
       })
       .then((error) => {
         console.log(error);
+        const errorMessage = error.message;
+        setErr({ ...err, general: errorMessage });
       });
   };
 
@@ -82,12 +89,16 @@ const Login = () => {
     githubLogin()
       .then((res) => {
         const user = res.user;
+        setErr({ ...err, general: "" });
+
         navigate(location.state?.from?.pathname);
 
         console.log(user);
       })
       .catch((err) => {
         console.log(err);
+        const errorMessage = err.message;
+        setErr({ ...err, general: errorMessage });
       });
   };
 
@@ -153,6 +164,7 @@ const Login = () => {
                 className="w-full py-3 btn btn-icon bg-indigo-accent-700"
                 value="Login"
               />
+              <p className="text-red-600 ">{err.general}</p>
 
               {/*  */}
               <div className="pb-6 space-y-2 border-b  border-gray-200">

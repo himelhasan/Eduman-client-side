@@ -167,6 +167,7 @@ const Register = () => {
                   type="text"
                   id="FirstName"
                   name="first_name"
+                  required
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -180,6 +181,7 @@ const Register = () => {
                   type="email"
                   id="Email"
                   name="email"
+                  required
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
                 <p className="text-red-600">{err.email}</p>
@@ -195,6 +197,7 @@ const Register = () => {
                   type="url"
                   id="PhotoUrl"
                   name="Photo_Url"
+                  required
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
               </div>
@@ -208,6 +211,7 @@ const Register = () => {
                   autoComplete="on"
                   onChange={handelPasswordChange}
                   type="password"
+                  required
                   id="Password"
                   name="password"
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
@@ -224,6 +228,7 @@ const Register = () => {
                   autoComplete="on"
                   onChange={handelPasswordConfirmationChange}
                   type="password"
+                  required
                   id="PasswordConfirmation"
                   name="password_confirmation"
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
@@ -260,9 +265,9 @@ const Register = () => {
                   </Link>
                   .
                 </p>
+                <p className="text-red-600 pt-4">{err.general}</p>
               </div>
 
-              <p className="text-red-600">{err.general}</p>
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <button className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500">
                   Create an account
