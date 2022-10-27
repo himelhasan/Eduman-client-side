@@ -81,7 +81,7 @@ const CategoryFilterSidebar = () => {
               <div className="space-y-2 px-5 py-6">
                 {tags.map((c) => (
                   <div className="flex items-center">
-                    <Link to={`/courses/${c}`} className="ml-3 text-sm font-medium">
+                    <Link to={`/${c}`} className="ml-3 text-sm font-medium">
                       {c}
                     </Link>
                   </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SingleCourseSidebar = ({ singleCourseData }) => {
+const SingleCourseSidebar = ({ singleCourseData, children }) => {
   const {
     category,
     id,
@@ -23,6 +23,7 @@ const SingleCourseSidebar = ({ singleCourseData }) => {
   return (
     <div>
       <img src={image} className="rounded w-full" alt="" />
+      <div className=" my-3 py-1 px-2">{children}</div>
       <div className="flex justify-between border-b my-3 py-1 px-2 text-slate-500">
         <div className="flex">
           <svg

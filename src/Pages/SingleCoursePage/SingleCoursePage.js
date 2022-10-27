@@ -2,8 +2,12 @@ import React, { createRef } from "react";
 import { Link, useLoaderData } from "react-router-dom";
 import innerBanner from "../../media/photos/slider-university.jpg";
 import SingleCourseSidebar from "./SingleCourseSidebar";
-// import Pdf from "react-to-pdf";
+import Pdf from "react-to-pdf";
 
+const ref = React.createRef();
+const options = {
+  orientation: "landscape",
+};
 const SingleCoursePage = () => {
   const singleCourseData = useLoaderData();
   console.log(singleCourseData);
@@ -27,12 +31,8 @@ const SingleCoursePage = () => {
 
   const { courses, img_url, instructor_rating, name, reviews, students } = author[0];
 
-  // const ref = createRef();
   return (
-    <div>
-      {/* <Pdf targetRef={ref} filename={courseName}>
-        {({ toPdf }) => <button onClick={toPdf}>Generate Pdf</button>}
-      </Pdf> */}
+    <div ref={ref}>
       {/* header part */}
 
       <>
@@ -92,8 +92,26 @@ const SingleCoursePage = () => {
           <p className="leading-normal	text-slate-600	pb-10">{description}</p>
         </div>
 
-        <div className="w-full md:w-1/4 border border-gray-200 rounded bg-white mx-2 shadow-lg px-2 lg:px-5 py-8">
-          <SingleCourseSidebar singleCourseData={singleCourseData}></SingleCourseSidebar>
+        <div className="w-full md:w-1/4 border border-gray-200 rounded bg-white mx-2 shadow-lg px-2 lg:px-5 py-5">
+          <SingleCourseSidebar singleCourseData={singleCourseData}>
+            <Pdf
+              targetRef={ref}
+              filename="code-example.pdf"
+              options={options}
+              x={2}
+              y={2}
+              scale={0.5}
+            >
+              {({ toPdf }) => (
+                <button
+                  className="my-4 mx-auto flex w-full items-center justify-center rounded-sm bg-indigo-accent-700 hover:bg-black text-white  py-4      "
+                  onClick={toPdf}
+                >
+                  Download Course Outline
+                </button>
+              )}
+            </Pdf>
+          </SingleCourseSidebar>
         </div>
       </div>
     </div>

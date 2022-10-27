@@ -37,7 +37,7 @@ const routes = createBrowserRouter([
         element: <CoursesLayout></CoursesLayout>,
       },
       {
-        path: "/courses/:tags",
+        path: "/:tags",
         loader: ({ params }) => {
           return fetch(`https://course-data-server.vercel.app/courses/${params.tags}`);
         },
