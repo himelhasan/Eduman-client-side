@@ -7,8 +7,10 @@ const Login = () => {
   const { emailLogin, gmailLogin, githubLogin } = useContext(AuthContext);
 
   const location = useLocation();
-  console.log("from", location.state?.from?.pathname);
   const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
+
   const [err, setErr] = useState({
     email: "",
     pass: "",
@@ -27,7 +29,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
 
   const handelEmailChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const inputEmail = e.target.value;
     if (
       !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -55,18 +57,16 @@ const Login = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        console.log(user);
+        // console.log(user);
         form.reset();
         setErr({ ...err, general: "" });
 
-        navigate(location.state?.from?.pathname);
+        navigate(from, { replace: true });
         // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        setErr({ ...err, general: errorMessage });
-        console.log(error);
+        // setErr({ ...err, general: error });
+        console.error(error);
       });
   };
 
@@ -74,14 +74,12 @@ const Login = () => {
     gmailLogin()
       .then((res) => {
         const user = res.user;
-        console.log(user);
         setErr({ ...err, general: "" });
-        navigate(location.state?.from?.pathname);
+        navigate(from, { replace: true });
       })
-      .then((error) => {
-        console.log(error);
-        const errorMessage = error.message;
-        setErr({ ...err, general: errorMessage });
+      .catch((error) => {
+        console.error(error);
+        // setErr({ ...err, general: error });
       });
   };
 
@@ -90,15 +88,12 @@ const Login = () => {
       .then((res) => {
         const user = res.user;
         setErr({ ...err, general: "" });
-
-        navigate(location.state?.from?.pathname);
-
-        console.log(user);
+        navigate(from, { replace: true });
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
         const errorMessage = err.message;
-        setErr({ ...err, general: errorMessage });
+        // setErr({ ...err, general: errorMessage });
       });
   };
 

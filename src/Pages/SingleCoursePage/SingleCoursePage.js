@@ -10,7 +10,7 @@ const options = {
 };
 const SingleCoursePage = () => {
   const singleCourseData = useLoaderData();
-  console.log(singleCourseData);
+  // console.log(singleCourseData);
 
   const {
     category,

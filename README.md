@@ -26,6 +26,7 @@ Eduman's goal is to provide quality business courses to business students and em
 - git hub code link : https://github.com/programming-hero-web-course1/b610-learning-platform-client-side-himelhasan.git
 - git hub server code link : https://github.com/programming-hero-web-course1/b610-lerning-platform-server-side-himelhasan
 - server link : https://course-data-server.vercel.app/
+- site link : https://eduman-d61ba.web.app/
 
 ## test user credentials
 

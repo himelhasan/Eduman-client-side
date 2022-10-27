@@ -54,22 +54,21 @@ const AuthProvider = ({ children }) => {
 
   const githubLogin = () => {
     setLoading(true);
-
     return signInWithPopup(auth, githubProvider);
   };
 
   // logout
   const logout = () => {
     setLoading(true);
-
     return signOut(auth);
   };
 
   // user Management
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      const newUser = currentUser;
-      setUser(newUser);
+      if (currentUser == null || currentUser) {
+        setUser(currentUser);
+      }
       setLoading(false);
     });
 

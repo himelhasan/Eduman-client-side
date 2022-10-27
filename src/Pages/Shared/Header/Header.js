@@ -75,7 +75,7 @@ const Header = () => {
               type="checkbox"
               className="toggle"
               checked={dark}
-              onClick={darkHandeler}
+              onChange={darkHandeler}
             />
           </li>
         </ul>
@@ -86,9 +86,9 @@ const Header = () => {
               <div className="w-10 rounded-full">
                 <img
                   title={user.displayName}
-                  alt={user.displayName}
+                  alt={user?.displayName}
                   src={
-                    user.photoURL ? user.photoURL : "https://placeimg.com/80/80/people"
+                    user?.photoURL ? user?.photoURL : "https://placeimg.com/80/80/people"
                   }
                 />
               </div>

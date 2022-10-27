@@ -1,9 +1,15 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthProvider";
 
 const Register = () => {
   const { registerWithEmail, modifyProfile } = useContext(AuthContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const from = location.state?.from?.pathname || "/";
+
   const [userInfo, setUserInfo] = useState({
     displayName: "",
     email: "",
@@ -24,7 +30,7 @@ const Register = () => {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
   const handelYourNameChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setFullName(e.target.value);
     setUserInfo({ ...userInfo, displayName: e.target.value });
   };
@@ -35,7 +41,7 @@ const Register = () => {
   };
 
   const handelEmailChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const inputEmail = e.target.value;
     if (
       !/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -85,7 +91,7 @@ const Register = () => {
     setUserInfo({ ...userInfo, password: inputPassword });
   };
   const handelPasswordConfirmationChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     const inputPassConfirmation = e.target.value;
 
     if (password === inputPassConfirmation) {
@@ -101,16 +107,15 @@ const Register = () => {
     const form = event.target;
     registerWithEmail(email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
-        console.log(user);
         updateUserProfile(userInfo);
+        navigate(from, { replace: true });
         form.reset();
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(error);
+        // console.log(error);
         setErr({ ...err, general: errorMessage });
         // ..
       });
@@ -124,10 +129,11 @@ const Register = () => {
         // Profile updated!
         // ...
         // const profile = res.user;
-        console.log(res);
+        // console.log(res);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
+        setErr({ ...err, general: error });
         // An error occurred
         // ...
       });

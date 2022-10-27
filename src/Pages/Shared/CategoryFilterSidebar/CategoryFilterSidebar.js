@@ -54,7 +54,7 @@ const CategoryFilterSidebar = () => {
                 </Link>
               </div>
               {category.map((c) => (
-                <div className="flex items-center">
+                <div className="flex items-center" key={c.categoryName}>
                   <Link
                     to={`/courses/${c.categoryName} `}
                     className="ml-3 text-sm font-medium"
@@ -80,7 +80,7 @@ const CategoryFilterSidebar = () => {
               </legend>
               <div className="space-y-2 px-5 py-6">
                 {tags.map((c) => (
-                  <div className="flex items-center">
+                  <div className="flex items-center" key={c}>
                     <Link to={`/${c}`} className="ml-3 text-sm font-medium">
                       {c}
                     </Link>
