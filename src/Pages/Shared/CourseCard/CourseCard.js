@@ -17,7 +17,7 @@ const CourseCard = ({ course }) => {
   } = course;
   return (
     <Link
-      to={`/courses/${id}`}
+      to={`/course/${id}`}
       className="relative bg-white m-2 flex flex-col  justify-between border border-gray-200 "
     >
       <div>

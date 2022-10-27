@@ -6,7 +6,6 @@ import Courses from "./Courses";
 
 const CoursesLayout = () => {
   const coursesData = useLoaderData();
-
   return (
     <>
       <>
@@ -31,7 +30,7 @@ const CoursesLayout = () => {
           <CategoryFilterSidebar></CategoryFilterSidebar>
         </div>
         <div className="w-full md:w-3/4">
-          <Courses></Courses>
+          <Courses coursesData={coursesData}></Courses>
           {/* content<Outlet></Outlet> */}
         </div>
       </div>

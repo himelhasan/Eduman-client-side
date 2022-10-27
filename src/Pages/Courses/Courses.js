@@ -2,8 +2,8 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import CourseCard from "../Shared/CourseCard/CourseCard";
 
-const Courses = () => {
-  const coursesData = useLoaderData();
+const Courses = ({ coursesData }) => {
+  // const coursesData = useLoaderData();
 
   return (
     <section className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">

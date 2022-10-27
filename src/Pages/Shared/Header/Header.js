@@ -40,7 +40,7 @@ const Header = () => {
           </li>
           <li>
             <Link
-              to="/courses"
+              to="/allcourses"
               className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-accent-700"
             >
               Courses

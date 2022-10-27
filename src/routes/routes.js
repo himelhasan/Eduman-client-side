@@ -22,7 +22,7 @@ const routes = createBrowserRouter([
       { path: "/", element: <Home></Home> },
       { path: "/about", element: <About></About> },
       {
-        path: "/courses",
+        path: "/allCourses",
         loader: () => {
           return fetch("https://course-data-server.vercel.app/courses");
         },
@@ -30,7 +30,22 @@ const routes = createBrowserRouter([
       },
 
       {
-        path: "/courses/:id",
+        path: "/courses/:category",
+        loader: ({ params }) => {
+          return fetch(`https://course-data-server.vercel.app/${params.category}`);
+        },
+        element: <CoursesLayout></CoursesLayout>,
+      },
+      {
+        path: "/courses/:tags",
+        loader: ({ params }) => {
+          return fetch(`https://course-data-server.vercel.app/courses/${params.tags}`);
+        },
+        element: <CoursesLayout></CoursesLayout>,
+      },
+
+      {
+        path: "/course/:id",
         loader: ({ params }) => {
           return fetch(`https://course-data-server.vercel.app/course/${params.id}`);
         },

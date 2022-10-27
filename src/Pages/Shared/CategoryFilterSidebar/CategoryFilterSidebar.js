@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const CategoryFilterSidebar = () => {
+  const [category, setCategory] = useState([]);
+  const [tags, setTags] = useState([]);
+  // TO LOAD ALL THE Categories NAME
+  useEffect(() => {
+    fetch("https://course-data-server.vercel.app/allCategory")
+      .then((response) => response.json())
+      .then((data) => setCategory(data));
+  }, []);
+
+  // TO LOAD ALL THE TAGS NAME
+  useEffect(() => {
+    fetch("https://course-data-server.vercel.app/alltags")
+      .then((response) => response.json())
+      .then((data) => setTags(data));
+  }, []);
+
   return (
     <div className="lg:sticky lg:top-4">
       <details open className="overflow-hidden rounded border border-gray-200">
@@ -30,22 +47,28 @@ const CategoryFilterSidebar = () => {
             </legend>
 
             <div className="space-y-2 px-5 py-6">
+              {/*  */}
               <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  id="toy"
-                  name="type[toy]"
-                  className="h-5 w-5 rounded border-gray-300"
-                />
-                <label name="t0y" className="ml-3 text-sm font-medium">
-                  Toy
-                </label>
+                <Link to="/allcourses" className="ml-3 text-sm font-medium">
+                  All Courses
+                </Link>
               </div>
+              {category.map((c) => (
+                <div className="flex items-center">
+                  <Link
+                    to={`/courses/${c.categoryName} `}
+                    className="ml-3 text-sm font-medium"
+                  >
+                    {c.categoryName}
+                  </Link>
+                </div>
+              ))}
 
+              {/*  */}
               <div className="pt-2">
-                <button type="button" className="text-xs text-gray-500 underline">
-                  Reset Type
-                </button>
+                <Link to="/allcourses" className="text-xs text-gray-500 underline">
+                  Reset All
+                </Link>
               </div>
             </div>
           </fieldset>
@@ -53,87 +76,48 @@ const CategoryFilterSidebar = () => {
           <div>
             <fieldset>
               <legend className="block w-full bg-gray-50 px-5 py-3 text-xs font-medium">
-                Age
+                Expertise Level
               </legend>
-
               <div className="space-y-2 px-5 py-6">
+                {tags.map((c) => (
+                  <div className="flex items-center">
+                    <Link to={`/courses/${c}`} className="ml-3 text-sm font-medium">
+                      {c}
+                    </Link>
+                  </div>
+                ))}
+
+                {/* <div className="flex items-center">
+                  <Link to="/courses/BEST%20SELLER" className="ml-3 text-sm font-medium">
+                    BEST SELLER
+                  </Link>
+                </div>
                 <div className="flex items-center">
-                  <input
-                    id="3+"
-                    type="checkbox"
-                    name="age[3+]"
-                    className="h-5 w-5 rounded border-gray-300"
-                  />
-
-                  <label name="3+" className="ml-3 text-sm font-medium">
-                    3+
-                  </label>
+                  <Link to="/courses/Advanced" className="ml-3 text-sm font-medium">
+                    Advanced
+                  </Link>
                 </div>
-
                 <div className="flex items-center">
-                  <input
-                    id="8+"
-                    type="checkbox"
-                    name="age[8+]"
-                    className="h-5 w-5 rounded border-gray-300"
-                  />
-
-                  <label name="8+" className="ml-3 text-sm font-medium">
-                    8+
-                  </label>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    id="12+"
-                    type="checkbox"
-                    name="age[12+]"
-                    className="h-5 w-5 rounded border-gray-300"
-                  />
-
-                  <label name="12+" className="ml-3 text-sm font-medium">
-                    12+
-                  </label>
-                </div>
-
-                <div className="flex items-center">
-                  <input
-                    id="16+"
-                    type="checkbox"
-                    name="age[16+]"
-                    className="h-5 w-5 rounded border-gray-300"
-                  />
-
-                  <label name="16+" className="ml-3 text-sm font-medium">
-                    16+
-                  </label>
-                </div>
-
-                <div className="pt-2">
-                  <button type="button" className="text-xs text-gray-500 underline">
-                    Reset Age
-                  </button>
-                </div>
+                  <Link to="/courses/Expert" className="ml-3 text-sm font-medium">
+                    Expert
+                  </Link>
+                </div> */}
               </div>
             </fieldset>
           </div>
 
           <div className="flex justify-between border-t border-gray-200 px-5 py-3">
-            <button
-              name="reset"
-              type="button"
-              className="rounded text-xs font-medium text-gray-600 underline"
-            >
+            <Link to="/allcourses" className="text-xs text-gray-500 underline">
               Reset All
-            </button>
+            </Link>
 
-            <button
+            {/* <button
               name="commit"
               type="button"
               className="rounded-sm bg-indigo-accent-700 hover:bg-black text-white px-5 py-3 text-xs font-medium "
             >
               Apply Filters
-            </button>
+            </button> */}
           </div>
         </form>
       </details>
