@@ -72,7 +72,7 @@ const SingleCoursePage = () => {
 
             <div className="px-2 border-b lg:border-b-0 py-2 lg:border-l w-full lg:w-1/4 text-left md:text-center my-2 ">
               <p className="text-sm text-gray-500">Total Enrolled</p>
-              <p className="text-sm font-semibold">{students}</p>
+              <p className="text-sm font-semibold">{enrolled}</p>
             </div>
             <div className="px-2 border-b lg:border-b-0 py-2 lg:border-l w-full lg:w-1/4 text-left md:text-center my-2 ">
               <p className="text-sm text-gray-500">Loved by</p>
