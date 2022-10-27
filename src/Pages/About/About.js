@@ -44,8 +44,8 @@ const About = () => {
                 they need to leave their mark in society.
               </p>
 
-              <a
-                href="#"
+              <Link
+                to="/allcourses"
                 class="mt-8 inline-flex items-center rounded border border-indigo-accent-700 bg-indigo-accent-700 px-8 py-3 text-white hover:bg-transparent hover:text-indigo-600 focus:outline-none focus:ring active:text-indigo-500"
               >
                 <span class="text-sm font-medium"> Get Started </span>
@@ -64,7 +64,7 @@ const About = () => {
                     d="M17 8l4 4m0 0l-4 4m4-4H3"
                   />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

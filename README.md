@@ -14,6 +14,13 @@ Eduman's goal is to provide quality business courses to business students and em
 - Sign in with Github Account
 - Protected Checkout page
 
+## Upcoming Features
+
+- Payment methods
+- Dark mode
+- Account update Page
+- Videos Streaming
+
 ## Important Links
 
 - git hub code link : https://github.com/programming-hero-web-course1/b610-learning-platform-client-side-himelhasan.git

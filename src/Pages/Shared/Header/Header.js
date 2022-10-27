@@ -62,6 +62,14 @@ const Header = () => {
               Blog
             </Link>
           </li>
+          <li>
+            <Link
+              to="/contact"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-accent-700"
+            >
+              Contact us
+            </Link>
+          </li>
           <li title="Dark Mode">
             <input
               type="checkbox"
@@ -94,6 +102,7 @@ const Header = () => {
                   {user?.displayName ? user?.displayName : "Profile"}
                 </Link>
               </li>
+
               <li>
                 <button onClick={signOut}>Logout</button>
               </li>
@@ -179,7 +188,7 @@ const Header = () => {
                     </li>
                     <li>
                       <Link
-                        to="/courses"
+                        to="/allcourses"
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-accent-700"
                       >
                         Courses
@@ -199,6 +208,14 @@ const Header = () => {
                         className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-accent-700"
                       >
                         Blog
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/contact"
+                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-indigo-accent-700"
+                      >
+                        Contact us
                       </Link>
                     </li>
                   </ul>

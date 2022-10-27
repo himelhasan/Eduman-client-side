@@ -2,6 +2,7 @@ import React from "react";
 import BrandSlider from "../Shared/BrandSlider/BrandSlider";
 import styles from "./Home.css";
 import course from "../../media/photos/course-06.jpg";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -21,12 +22,18 @@ const Home = () => {
               results.
             </p>
             <div className="flex justify-center">
-              <button className="inline-flex text-white bg-indigo-accent-700 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-accent-600 rounded text-lg">
+              <Link
+                to="/allcourses"
+                className="inline-flex text-white bg-indigo-accent-700 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-accent-600 rounded text-lg"
+              >
                 Courses
-              </button>
-              <button className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+              </Link>
+              <Link
+                to="/contact"
+                className="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg"
+              >
                 Contact
-              </button>
+              </Link>
             </div>
           </div>
           <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6"></div>
@@ -37,7 +44,7 @@ const Home = () => {
       </section> */}
       {/* about part */}
 
-      <div class="max-w-screen-xl p-4 bg-white dark:bg-gray-800 mx-auto px-4 sm:px-6 lg:px-8 relative py-26 lg:mt-20">
+      <div class="max-w-screen-xl p-4 py-10 bg-white dark:bg-gray-800 mx-auto px-4 sm:px-6 lg:px-20 relative lg:py-20 lg:mt-20">
         <div class="relative">
           <div class="lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-8 lg:items-center">
             <div class="lg:col-start-2 lg:max-w-2xl ml-auto">
@@ -157,7 +164,7 @@ const Home = () => {
       {/* about part */}
       <section></section>
       {/* achevements */}
-      <section class="text-gray-600 body-font">
+      <section class="text-gray-600 body-font bg-slate-50">
         <div class="container px-5 py-24 mx-auto flex flex-wrap">
           <div class="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
             <div class="w-full sm:p-4 px-4 mb-6">
