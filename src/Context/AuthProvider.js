@@ -30,6 +30,7 @@ const AuthProvider = ({ children }) => {
   // update user display name and photoURL
 
   const modifyProfile = (user) => {
+    setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName: user.displayName,
       photoURL: user.photoURL,
@@ -38,6 +39,8 @@ const AuthProvider = ({ children }) => {
 
   // email Login
   const emailLogin = (email, password) => {
+    setLoading(true);
+
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -50,11 +53,15 @@ const AuthProvider = ({ children }) => {
   // github Login
 
   const githubLogin = () => {
+    setLoading(true);
+
     return signInWithPopup(auth, githubProvider);
   };
 
   // logout
   const logout = () => {
+    setLoading(true);
+
     return signOut(auth);
   };
 

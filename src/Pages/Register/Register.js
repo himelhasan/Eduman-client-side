@@ -14,9 +14,12 @@ const Register = () => {
     email: "",
     pass: "",
     confirmPass: "",
+    general: "",
   });
+
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [photoUrl, setPhotoUrl] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
@@ -24,6 +27,11 @@ const Register = () => {
     console.log(e.target.value);
     setFullName(e.target.value);
     setUserInfo({ ...userInfo, displayName: e.target.value });
+  };
+
+  const handelPhotoUrlChange = (e) => {
+    setPhotoUrl(e.target.value);
+    setUserInfo({ ...userInfo, photoURL: e.target.value });
   };
 
   const handelEmailChange = (e) => {
@@ -103,6 +111,7 @@ const Register = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(error);
+        setErr({ ...err, general: errorMessage });
         // ..
       });
   };
@@ -147,7 +156,7 @@ const Register = () => {
             </h1>
 
             <form onSubmit={signUpWithEmail} className="mt-8 grid grid-cols-6 gap-6">
-              <div className="col-span-6">
+              <div className="col-span-6 sm:col-span-3 ">
                 <label className="block text-sm font-medium text-gray-700">
                   Your Name
                 </label>
@@ -162,22 +171,7 @@ const Register = () => {
                 />
               </div>
 
-              {/* <div className="col-span-6 sm:col-span-3">
-                <label className="block text-sm font-medium text-gray-700">
-                  Last Name
-                </label>
-
-                <input
-                  autoComplete="on"
-                  onChange={handelLastNameChange}
-                  type="text"
-                  id="LastName"
-                  name="last_name"
-                  className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
-                />
-              </div> */}
-
-              <div className="col-span-6">
+              <div className="col-span-6 sm:col-span-3 ">
                 <label className="block text-sm font-medium text-gray-700">Email</label>
 
                 <input
@@ -189,6 +183,20 @@ const Register = () => {
                   className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
                 />
                 <p className="text-red-600">{err.email}</p>
+              </div>
+              <div className="col-span-6 ">
+                <label className="block text-sm font-medium text-gray-700">
+                  Photo Url
+                </label>
+
+                <input
+                  autoComplete="on"
+                  onChange={handelPhotoUrlChange}
+                  type="url"
+                  id="PhotoUrl"
+                  name="Photo_Url"
+                  className="px-5 py-2 w-full border rounded mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm"
+                />
               </div>
 
               <div className="col-span-6 sm:col-span-3">

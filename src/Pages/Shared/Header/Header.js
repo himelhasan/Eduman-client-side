@@ -7,6 +7,11 @@ const Header = () => {
   const { logout, user } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(false);
+  const [dark, setDark] = useState(false);
+
+  const darkHandeler = () => {
+    setDark(!dark);
+  };
 
   const signOut = () => {
     logout()
@@ -57,6 +62,14 @@ const Header = () => {
               Blog
             </Link>
           </li>
+          <li title="Dark Mode">
+            <input
+              type="checkbox"
+              className="toggle"
+              checked={dark}
+              onClick={darkHandeler}
+            />
+          </li>
         </ul>
 
         {user ? (
@@ -64,6 +77,7 @@ const Header = () => {
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">
                 <img
+                  title={user.displayName}
                   alt={user.displayName}
                   src={
                     user.photoURL ? user.photoURL : "https://placeimg.com/80/80/people"
